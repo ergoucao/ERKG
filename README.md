@@ -48,13 +48,13 @@ python knowledge4tsf/main.py \
 }
 
 ```
-## Acknowledgement
+## Acknowledgements
 We acknowledge these open-source projects:
 
 - [RevIN](https://github.com/ts-kim/RevIN) - Reversible Instance Normalization
 - [ETSformer](https://github.com/salesforce/ETSformer) - Time Series Forecasting Transformer
 - [AttrFaceNet](https://github.com/FVL2020/AttrFaceNet)
-## Contack
+## Contact
 For questions and collaborations:
 
 Xin Cao: caoxin9629@gmail.com
