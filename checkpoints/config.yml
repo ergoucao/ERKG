@@ -1,0 +1,94 @@
+MODE: 1             # 1: train, 2: test, 3: eval
+#MODEL: 1            # 1: status model, 2: TSF model, 3: status-TSF model, 4: joint model
+TSF_MODEL: etsformer # etsformer, stid.
+SEED: 42            # random seed
+GPU: [0,1,2]          # list of gpu ids
+DEBUG: 1            # turns on debugging mode
+VERBOSE: 0          # turns on verbose mode in the output console
+DEVICE: cuda:1
+
+TRAIN_FLIST: ./datasets/celeba_train.flist
+VAL_FLIST: ./datasets/celeba_val.flist
+TEST_FLIST: ./datasets/celeba_test.flist
+
+Attribute_path: ./datasets/list_attr_celeba.txt
+
+LR: 0.001                    # learning rate
+STATUS_LR: 0.001             # status learning rate ratio
+BETA1: 0.0                    # adam optimizer beta1
+BETA2: 0.9                    # adam optimizer beta2
+BATCH_SIZE: 128                # input batch size for training
+INPUT_SIZE: 0                 # input image size for training 0 for original size
+MAX_EPOCH: 100
+
+L1_LOSS_WEIGHT: 1             # l1 loss weight
+FM_LOSS_WEIGHT: 10            # feature-matching loss weight
+
+
+SAVE_INTERVAL: 0           # how many iterations to wait before saving model (0: never)
+SAMPLE_INTERVAL: 100         # how many iterations to wait before sampling (0: never)
+SAMPLE_SIZE: 16               # number of images to sample
+EVAL_INTERVAL: 0              # how many iterations to wait before model evaluation (0: never)
+LOG_INTERVAL: 100 #10        # how many iterations to wait before logging training status (0: never)
+
+# Crossformer config
+data_dim: 47
+in_len: 336
+
+seg_len: 12
+win_size: 2
+factor: 10
+cross_d_model: 64
+cross_d_ff: 128
+cross_n_heads: 2
+cross_e_layers: 3
+baseline: False
+
+# ETSformer config
+# data loader
+root_path: ./data/ampds2
+features: m                   # forecasting task, options:[m, s, ms]; m:multivariate predict multivariate, s:univariate predict univariate, ms:multivariate predict univariate
+freq: h                       # freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h
+checkpoints: ./checkpoints/   # location of model checkpoints
+
+# forecasting task
+seq_len: 336                  # history sequence length
+label_len: 1                  # start token length
+#pred_len:  72                # prediction sequence length
+horizon: 1
+
+# model define
+enc_in: 47 #46 23  31  321                  # encoder input size
+dec_in: 47                    # decoder input size
+c_out: 47
+d_model: 512                  # dimension of model
+n_heads: 8                    # num of heads
+e_layers: 2                   # num of encoder layers
+d_layers: 2                   # num of decoder layers
+d_ff: 2048                    # dimension of fcn
+K: 1                          # top-k fouier bases
+dropout: 0.2                  # dropout
+embed: timef                  # time featrues encoding, options:[
+activation: sigmoid           # activation
+min_lr: 1e-30
+warmup_epochs: 3
+std: 0.2
+smoothing_learning_rate: 0    # optimizer learning rate
+damping_learning_rate: 0      # optimizer learning rate
+output_attention: false
+
+# optimization
+optim: adam                   # optimizer
+num_workers: 1                # data loader num workers
+itr: 1                        # experiments times
+train_epochs: 15              # train epochs
+#batch_size: 64                # batch size of train input data
+patience: 5                   # early stopping patience
+learning_rate: 1e-4           # optimizer learning rate
+des: test                     # exp description
+lradj: exponential_with_warmup # adjust learning rate
+
+# gpu
+use_gpu: true                 # use gpu
+use_multi_gpu: false
+devices: 0,1,2,3

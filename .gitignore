@@ -1,0 +1,11 @@
+# igore the model weigth
+*.pth
+*.dat
+*.pyc
+
+# igore datasets
+*.csv
+
+*.gz
+wandb/
+

@@ -1,0 +1,19 @@
+name: knowledge4tsf
+channels:
+  - defaults
+dependencies:
+  - python=3.11.4
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - ca-certificates
+  - openssl
+  - pandas=1.5.3
+  - certifi
+  - scikit-learn
+  - einops
+  - transformers
+  - matplotlib
+  - wandb=0.15.5
+prefix: /home/cx/miniconda3/envs/knowledge4tsf
